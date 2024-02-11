@@ -51,30 +51,33 @@ import time
 # BOARD ANALOG ------------------------------------------------------------
 # testMcp3428 1 0       # Read Inputs
 
-help_list = [
-    ('ifc1.help', 'mostra questo menu'),
-    ('----- MACCHINA A STATI PRIMCIPALE', ''),
-    ('ifc1.GPIOPP_ll()', 'Mette il sistema in LOW-LEVEL test mode'),
-    ('ifc1.GPIOPP_ml()', 'Mette il sistema in MEDIUM-LEVEL test mode'),
-    ('ifc1.GPIOPP_hl()', 'Mette il sistema in RUN mode'),
-    ('----- VISUALIZZAZIONE LIVE', ''),
-    ('ifc1.modbusDump(on)', 'Attiva/disattiva il dump dei pacchetti modbus'),
-    ('----- SISTEMA', ''),
-    ('ifc1.reset()', 'Reboot centralina'),
-    ('ifc1.nuovaConfigurazione()', 'Carica e attiva la nuova configurazione'),
+ifc1_help_list = [
+    ('ifc1.help                  ', 'mostra questo menu'),
     ('', ''),
-    ('ifc1.environment()', 'Motra onfigurazione impianto'),
-    ('ifc1.stato()', 'Motra stato Centralina'),
-    ('ifc1.statoSchede()', 'Motra stato delle schede'),
-    ('ifc1.statoZone()', 'Motra stato delle zone'),
-    ('ifc1.statoIO()', 'Motra stato degli INPUTS/OUTPUTS'),
-    ('ifc1.statoIFD1(n)', 'Motra stato del rilevatore con indirizzo modbus n'),
+    ('----- MACCHINA A STATI PRIMCIPALE', ''),
+    ('ifc1.GPIOPP_ll()           ', 'Mette il sistema in LOW-LEVEL test mode'),
+    ('ifc1.GPIOPP_ml()           ', 'Mette il sistema in MEDIUM-LEVEL test mode'),
+    ('ifc1.GPIOPP_hl()           ', 'Mette il sistema in RUN mode'),
+    ('', ''),
+    ('----- VISUALIZZAZIONE LIVE ', ''),
+    ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
+    ('', ''),
+    ('----- SISTEMA              ', ''),
+    ('ifc1.reset()               ', 'Reboot centralina'),
+    ('ifc1.nuovaConfigurazione() ', 'Carica e attiva la nuova configurazione'),
+    ('', ''),
+    ('ifc1.environment()         ', 'Mostra onfigurazione impianto'),
+    ('ifc1.stato()               ', 'Mostra stato Centralina'),
+    ('ifc1.statoSchede()         ', 'Mostra stato delle schede'),
+    ('ifc1.statoZone()           ', 'Mostra stato delle zone'),
+    ('ifc1.statoIO()             ', 'Mostra stato degli INPUTS/OUTPUTS'),
+    ('ifc1.statoIFD1(n)          ', 'Mostra stato del rilevatore con indirizzo modbus n'),
 ]
 
 def help():
-    global help_list
-    for t in help_list:
-        print(t[0] +'\t' + t[1])
+    global ifc1_help_list
+    for t in ifc1_help_list:
+        print(t[0] + t[1])
 
 def GPIOPP_ll():
     mst.ms('frcGPIOPP 0')
