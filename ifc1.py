@@ -1,4 +1,5 @@
 import maria_serial_thread as mst
+import time
 
 # BOARD POWERIO ----------------------------------------------------------
 # frcGPIOPP 0            # blocco completamente la macchina a stati
@@ -50,14 +51,24 @@ import maria_serial_thread as mst
 # BOARD ANALOG ------------------------------------------------------------
 # testMcp3428 1 0       # Read Inputs
 
-
-
 help_list = [
-    ('help', 'mostra questo menu'),
-    ('GPIOPP_ll()', 'Mette il sistema in LOW-LEVEL test mode'),
-    ('GPIOPP_ml()', 'Mette il sistema in MEDIUM-LEVEL test mode'),
-    ('GPIOPP_hl()', 'Mette il sistema in RUN mode'),
-    ('modbusDump(on)', 'Attiva/disattiva il dump dei pacchetti modbus'),
+    ('ifc1.help', 'mostra questo menu'),
+    ('----- MACCHINA A STATI PRIMCIPALE', ''),
+    ('ifc1.GPIOPP_ll()', 'Mette il sistema in LOW-LEVEL test mode'),
+    ('ifc1.GPIOPP_ml()', 'Mette il sistema in MEDIUM-LEVEL test mode'),
+    ('ifc1.GPIOPP_hl()', 'Mette il sistema in RUN mode'),
+    ('----- VISUALIZZAZIONE LIVE', ''),
+    ('ifc1.modbusDump(on)', 'Attiva/disattiva il dump dei pacchetti modbus'),
+    ('----- SISTEMA', ''),
+    ('ifc1.reset()', 'Reboot centralina'),
+    ('ifc1.nuovaConfigurazione()', 'Carica e attiva la nuova configurazione'),
+    ('', ''),
+    ('ifc1.environment()', 'Motra onfigurazione impianto'),
+    ('ifc1.stato()', 'Motra stato Centralina'),
+    ('ifc1.statoSchede()', 'Motra stato delle schede'),
+    ('ifc1.statoZone()', 'Motra stato delle zone'),
+    ('ifc1.statoIO()', 'Motra stato degli INPUTS/OUTPUTS'),
+    ('ifc1.statoIFD1(n)', 'Motra stato del rilevatore con indirizzo modbus n'),
 ]
 
 def help():
@@ -76,3 +87,32 @@ def GPIOPP_hl():
 
 def modbusDump(on):
     mst.ms('frcLogModbus '+ str(on))
+
+def reset():
+    mst.ms('reset')
+
+def nuovaConfigurazione():
+    mst.ms('envLoad')
+    time.sleep(1.0)  # pausa di un secondo
+    mst.ms('envWrite')
+    reset()
+
+def environment():
+    mst.ms('showEnv 2')
+
+def stato():
+    mst.ms('showStat 1')
+    time.sleep(0.3)
+    mst.ms('showStat 2 0')
+
+def statoSchede():
+    mst.ms('showStat 2 1')
+
+def statoZone():
+    mst.ms('showStat 2 2')
+
+def statoIO():
+    mst.ms('showStat 2 3')
+
+def statoIFD1(ifd1Idx):
+    mst.ms('showStat 3 ' + str(ifd1Idx))
