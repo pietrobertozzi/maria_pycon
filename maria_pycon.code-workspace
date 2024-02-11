@@ -1,0 +1,67 @@
+{
+	"folders": [
+		{
+			"path": "./"
+		}
+	],
+	"settings": {
+		"search.exclude": {
+			"**/built": true,
+			"**/obj": true,
+			"**/maria_monitor/DOC": true,
+			"**/maria_monitor/freeRTOS": true,
+			"**/maria_monitor/linux": true,
+			"**/maria_monitor/no_os": true,
+			"**/maria_monitor/srcparser": true,
+			"**/maria_monitor/win32": true
+		},
+		"includePath": [
+                "${workspaceFolder}/**",
+        ],
+		"C_Cpp.default.defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+				"int16_t=short",
+				"int32_t=int",
+				"int8_t=char",
+				"uint16_t=unsigned short",
+				"uint32_t=unsigned int",
+				"uint8_t=unsigned char",
+				"uint64_t=unsigned long long",
+				"noBOARD_PROTO0_ICL1_MCPU",
+				"noBOARD_IFC1_CONTROLLO_1_0",
+				"BOARD_IFC1_DIAGNOSTICA_1_0",
+				"noLINK_MARIA",
+				"MARIA_PRINTF_IS_PRINTF",
+				"noTARGET_ARCH_ARM",
+				"noAPP_IFC1",
+				"VERSION=\"x.x\"",
+				"USE_HAL_DRIVER",
+				"noSTM32L412xx",
+				"noSTM32F105xC",
+		],
+		"C_Cpp.vcFormat.indent.gotoLabels": "leftmostColumn",
+		"workbench.tree.indent": 35,
+		"makefile.extensionOutputFolder": "./.vscode",
+		"files.associations": {
+			"compare": "c",
+			"hwtypes.h": "c",
+			"brd_icl1_mcpu_l412.h": "c",
+			"cmsis_os.h": "c",
+			"user_g3_common.h": "c",
+			"drv_bh1750.h": "c",
+			"drv_i2c.h": "c",
+			"brd_icl1_mcpu.h": "c",
+			"stm32f1xx_hal.h": "c",
+			"drv_ad524x.h": "c",
+			"main.h": "c",
+			"task_comm.h": "c",
+			"brd_ifc1_controllo.h": "c",
+			"drv_stwd100.h": "c",
+			"ard_serial_protocol.h": "c",
+			"random": "c",
+			"ifc1_centralina.h": "c"
+		}
+	}
+}
