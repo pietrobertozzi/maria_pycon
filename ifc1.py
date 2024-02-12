@@ -2,7 +2,7 @@ import maria_serial_thread as mst
 import time
 
 # BOARD POWERIO ----------------------------------------------------------
-# frcGPIOPP 0            # blocco completamente la macchina a stati
+### frcGPIOPP 0            # blocco completamente la macchina a stati
 # testMax7300 0 0 0      # max7300 write/read reg
 # testMax7300 4 0 0      # Dump Max7300
 # testMax7300 5 0 0      # Test INPUTS
@@ -11,13 +11,13 @@ import time
 # testMax7300 6 4 0 B    # read board B inputs
 
 # BOARD INPUTSOUTPUTS ----------------------------------------------------
-# frcGPIOPP 0            # blocco completamente la macchina a stati
+### frcGPIOPP 0            # blocco completamente la macchina a stati
 # testMcp2317 0 0 0     # mcp2317 write/read reg
 # testMcp2317 1 0 0     # mcp2317 dump
 # testMcp2317 2 0 0     # mcp2317 input self-test
 
 # BOARD POWER ------------------------------------------------------------
-# frcGPIOPP 0           # blocco completamente la macchina a stati
+### frcGPIOPP 0           # blocco completamente la macchina a stati
 # testLtc4151 0 0 0     # Ltc4151 write/read reg
 # testLtc4151 1 0 0     # Ltc4151 dump
 # testLtc4151 2 0 0     # Ltc4151 measures
@@ -27,26 +27,25 @@ import time
 # testPca59536D 3 0 0   # Pca59536D read Pins
 
 # SISTEMA ----------------------------------------------------------------
-# showStat 1            # SYSTEM status
-# showStat 2 0          # CENTRALINA status
-# showStat 2 1          # SCHEDE status
-# showStat 2 2          # ZONE status
-# showStat 2 3          # I/O status
-# showStat 3 x          # IFDx status
-# reset 
+### showStat 1            # SYSTEM status
+### showStat 2 0          # CENTRALINA status
+### showStat 2 1          # SCHEDE status
+### showStat 2 2          # ZONE status
+### showStat 2 3          # I/O status
+### showStat 3 x          # IFDx status
+### reset 
 # frcLogOff 1           # stop log
-# showEnv 2             # CENTRALINA configurazione
-# envLoad               # carica configurazione da codice micro
-# envWrite              # Salva Configrazione in EXTFLASH
+### showEnv 2             # CENTRALINA configurazione
+### envLoad               # carica configurazione da codice micro
+### envWrite              # Salva Configrazione in EXTFLASH
 # dbgFlashLl 0, 0       # FLASH Write/Read
 # dbgFlashLl 1, 0       # FLASH erase
 
-# frcGPIOPP
-# frcLogModbus
+### frcGPIOPP
+### frcLogModbus
 # frcLogOff
 # frcProfile
 # frcStopInputRefresh
-
 
 # BOARD ANALOG ------------------------------------------------------------
 # testMcp3428 1 0       # Read Inputs
@@ -58,6 +57,7 @@ ifc1_help_list = [
     ('ifc1.GPIOPP_ll()           ', 'Mette il sistema in LOW-LEVEL test mode'),
     ('ifc1.GPIOPP_ml()           ', 'Mette il sistema in MEDIUM-LEVEL test mode'),
     ('ifc1.GPIOPP_hl()           ', 'Mette il sistema in RUN mode'),
+    ('ifc1.GPIOPP_noOut()        ', 'Mette il sistema in RUN mode ma non gestisce gli output (modo di debug)'),
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
@@ -87,6 +87,9 @@ def GPIOPP_ml():
 
 def GPIOPP_hl():
     mst.ms('frcGPIOPP 0xFFFF')
+
+def GPIOPP_noOut():
+    mst.ms('frcGPIOPP 0x1D')
 
 def modbusDump(on):
     mst.ms('frcLogModbus '+ str(on))
