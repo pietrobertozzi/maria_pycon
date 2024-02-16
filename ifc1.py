@@ -61,6 +61,7 @@ ifc1_help_list = [
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
+    ('ifc1.logOn(on)             ', 'Attiva/disattiva log'),
     ('', ''),
     ('----- SISTEMA              ', ''),
     ('ifc1.reset()               ', 'Reboot centralina'),
@@ -93,6 +94,12 @@ def GPIOPP_noOut():
 
 def modbusDump(on):
     mst.ms('frcLogModbus '+ str(on))
+
+def logOn(on):
+    off = 1
+    if on:
+        off = 0
+    mst.ms('frcLogOff '+ str(off))
 
 def reset():
     mst.ms('reset')
