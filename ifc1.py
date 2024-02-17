@@ -53,11 +53,17 @@ import time
 ifc1_help_list = [
     ('ifc1.help                  ', 'mostra questo menu'),
     ('', ''),
-    ('----- MACCHINA A STATI PRIMCIPALE', ''),
-    ('ifc1.GPIOPP_ll()           ', 'Mette il sistema in LOW-LEVEL test mode'),
-    ('ifc1.GPIOPP_ml()           ', 'Mette il sistema in MEDIUM-LEVEL test mode'),
+    ('----- MACCHINA A STATI PRINCIPALE', ''),
+    ('ifc1.GPIOPP_ll()           ', 'Mette il sistema in LOW-LEVEL test mode (BLOCCO IN/FSM/OUT)'),
+    ('ifc1.GPIOPP_ml()           ', 'Mette il sistema in MEDIUM-LEVEL test mode (BLOCCO FSM)'),
     ('ifc1.GPIOPP_hl()           ', 'Mette il sistema in RUN mode'),
-    ('ifc1.GPIOPP_noOut()        ', 'Mette il sistema in RUN mode ma non gestisce gli output (modo di debug)'),
+    ('ifc1.GPIOPP_noOut()        ', 'Mette il sistema in RUN mode ma non gestisce gli output (BLOCCO OUT)'),
+    ('', ''),
+    ('----- TEST IN LOW LEVEL', ''),
+    ('ifc1.LL_OUT(idx, val)      ', 'controlla singolo output di indice idx (solo schede POWER-OUTPUTS)'),
+    ('', ''),
+    ('----- TEST IN MEDIUM LEVEL', ''),
+    ('ifc1.ML_OUT(idx, val)      ', 'controlla singolo output di indice idx'),
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
@@ -129,3 +135,19 @@ def statoIO():
 
 def statoIFD1(ifd1Idx):
     mst.ms('showStat 3 ' + str(ifd1Idx))
+
+def ML_OUT(idx, val):
+    mst.ms('dbgSetOutputVal(' + str(idx) + ',' + str(val) + ')')
+
+def LL_OUT(idx, val):
+    if idx in [64, 65, 66, 67, 68]:
+        # scheda output-power 0
+        ioAddr = idx - 64
+        mst.ms("testMax7300( 3, %d, %d, 0 )" % (ioAddr, val))
+    elif idx in [69, 70, 71, 72, 73]:
+        # scheda output-power 1
+        ioAddr = idx - 69
+        mst.ms("testMax7300( 3, %d, %d, 1 )" % (ioAddr, val))
+    else:
+        print('per controllare gli OUTPUTS delle schede I/O utilizzare il test di medio livello')
+
