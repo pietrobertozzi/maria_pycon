@@ -70,7 +70,7 @@ ifc1_help_list = [
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
-    ('ifc1.diagDump(on)          ', 'Attiva/disattiva il dump dei messaggi DIAGNOSTICA')
+    ('ifc1.diagDump(on)          ', 'Attiva/disattiva il dump dei messaggi DIAGNOSTICA'),
     ('ifc1.logOn(on)             ', 'Attiva/disattiva log'),
     ('', ''),
     ('----- SISTEMA              ', ''),
