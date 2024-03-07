@@ -53,6 +53,9 @@ import time
 ifc1_help_list = [
     ('ifc1.help                  ', 'mostra questo menu'),
     ('', ''),
+    ('----- HARDWARE', ''),
+    ('mst.ms(\'showI2C\')        ', 'I2C scan'),
+    ('', ''),
     ('----- MACCHINA A STATI PRINCIPALE', ''),
     ('ifc1.GPIOPP_ll()           ', 'Mette il sistema in LOW-LEVEL test mode (BLOCCO IN/FSM/OUT)'),
     ('ifc1.GPIOPP_ml()           ', 'Mette il sistema in MEDIUM-LEVEL test mode (BLOCCO FSM)'),
@@ -67,6 +70,7 @@ ifc1_help_list = [
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
+    ('ifc1.diagDump(on)          ', 'Attiva/disattiva il dump dei messaggi DIAGNOSTICA')
     ('ifc1.logOn(on)             ', 'Attiva/disattiva log'),
     ('', ''),
     ('----- SISTEMA              ', ''),
@@ -100,6 +104,9 @@ def GPIOPP_noOut():
 
 def modbusDump(on):
     mst.ms('frcLogModbus '+ str(on))
+
+def diagDump(on):
+    mst.ms('frcLogDiag '+ str(on))
 
 def logOn(on):
     off = 1
