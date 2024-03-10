@@ -1,7 +1,7 @@
 import maria_serial_thread as mst
 import atexit
 import signal
-from sys import exit
+import sys
 
 import ifc1
 
@@ -22,6 +22,11 @@ def handler(signal_received, frame):
 
 if __name__ == '__main__':
     print("running MAIN\n")
+
+    if len(sys.argv) >= 2:
+        MS_PORT = sys.argv[1]
+
+    print("using %s" % (MS_PORT))
 
     # Tell Python to run the handler() function when SIGINT is recieved
     signal.signal(signal.SIGINT, handler) # ctlr + c
