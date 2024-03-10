@@ -72,6 +72,7 @@ ifc1_help_list = [
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
     ('ifc1.diagDump(on)          ', 'Attiva/disattiva il dump dei messaggi DIAGNOSTICA'),
+    ('ifc1.siblingDump(on)       ', 'Attiva/disattiva il dump dei messaggi SIBLING'),
     ('ifc1.logOn(on)             ', 'Attiva/disattiva log'),
     ('', ''),
     ('----- SISTEMA              ', ''),
@@ -99,6 +100,7 @@ def GPIOPP_ml():
 
 def GPIOPP_hl():
     mst.ms('frcGPIOPP 0xFFFF')
+    mst.ms("frcStopInputRefresh 0")
 
 def GPIOPP_noOut():
     mst.ms('frcGPIOPP 0x1D')
@@ -108,6 +110,9 @@ def modbusDump(on):
 
 def diagDump(on):
     mst.ms('frcLogDiag '+ str(on))
+
+def siblingDump(on):
+    mst.ms('frcLogSibling '+ str(on))
 
 def logOn(on):
     off = 1
@@ -159,5 +164,6 @@ def LL_OUT(idx, val):
     else:
         print('per controllare gli OUTPUTS delle schede I/O utilizzare il test di medio livello')
 
-def ML_IN(idx, val)
-    mst.ms("dbgSetInputVal(%d, %d)" % idx, val)
+def ML_IN(idx, val):
+    mst.ms("frcStopInputRefresh 1")
+    mst.ms("dbgSetInputVal(%d, %d)" % (idx, val))
