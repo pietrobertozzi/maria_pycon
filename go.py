@@ -5,7 +5,7 @@ from sys import exit
 
 import ifc1
 
-MS_PORT='COM11'
+MS_PORT='COM5'
 MS_BAUDRATE=115200
 
 #######################################################################

@@ -67,6 +67,7 @@ ifc1_help_list = [
     ('', ''),
     ('----- TEST IN MEDIUM LEVEL', ''),
     ('ifc1.ML_OUT(idx, val)      ', 'controlla singolo output di indice idx'),
+    ('ifc1.ML_IN(idx, val)       ', 'forza singolo input di indice idx'),
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
@@ -158,3 +159,5 @@ def LL_OUT(idx, val):
     else:
         print('per controllare gli OUTPUTS delle schede I/O utilizzare il test di medio livello')
 
+def ML_IN(idx, val)
+    mst.ms("dbgSetInputVal(%d, %d)" % idx, val)
