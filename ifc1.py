@@ -78,6 +78,7 @@ ifc1_help_list = [
     ('----- SISTEMA              ', ''),
     ('ifc1.reset()               ', 'Reboot centralina'),
     ('ifc1.nuovaConfigurazione() ', 'Carica e attiva la nuova configurazione'),
+    ('mst.ms(\'envWrite 1\')     ', 'cancella configurazione da flash'),
     ('', ''),
     ('ifc1.environment()         ', 'Mostra onfigurazione impianto'),
     ('ifc1.stato()               ', 'Mostra stato Centralina'),
