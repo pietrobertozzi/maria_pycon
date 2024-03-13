@@ -67,7 +67,7 @@ ifc1_help_list = [
     ('', ''),
     ('----- TEST IN MEDIUM LEVEL', ''),
     ('ifc1.ML_OUT(idx, val)      ', 'controlla singolo output di indice idx'),
-    ('ifc1.ML_IN(idx, val)       ', 'forza singolo input di indice idx'),
+    #('ifc1.ML_IN(idx, val)       ', 'forza singolo input di indice idx'),
     ('', ''),
     ('----- VISUALIZZAZIONE LIVE ', ''),
     ('ifc1.modbusDump(on)        ', 'Attiva/disattiva il dump dei pacchetti modbus'),
@@ -97,7 +97,7 @@ def GPIOPP_ll():
     mst.ms('frcGPIOPP 0')
 
 def GPIOPP_ml():
-    mst.ms('frcGPIOPP 3')
+    mst.ms('frcGPIOPP 2')
 
 def GPIOPP_hl():
     mst.ms('frcGPIOPP 0xFFFF')
