@@ -55,6 +55,7 @@ ifc1_help_list = [
     ('', ''),
     ('----- HARDWARE', ''),
     ('mst.ms(\'showI2C\')        ', 'I2C scan'),
+    ('ifc1.readExtFlash(offset)  ', 'dump di 256 bytes della EXT FLASH a partire dall offset indicato'),
     ('', ''),
     ('----- MACCHINA A STATI PRINCIPALE', ''),
     ('ifc1.GPIOPP_ll()           ', 'Mette il sistema in LOW-LEVEL test mode (BLOCCO IN/FSM/OUT)'),
@@ -168,3 +169,6 @@ def LL_OUT(idx, val):
 def ML_IN(idx, val):
     mst.ms("frcStopInputRefresh 1")
     mst.ms("dbgSetInputVal(%d, %d)" % (idx, val))
+
+def readExtFlash(offset):
+    mst.ms("dbgFlashLl(2, %d)" % (offset))
