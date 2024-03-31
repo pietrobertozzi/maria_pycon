@@ -4,6 +4,7 @@ import signal
 import sys
 
 import ifc1
+import gufo
 
 MS_PORT='COM6'
 MS_BAUDRATE=115200

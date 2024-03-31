@@ -1,6 +1,9 @@
 import serial
 import threading
 import time
+import datetime
+
+thread_maria_parse_callbacks = []
 
 def thread_maria_serial(MS_PORT, MS_BAUDRATE):
     global ms_fGoOn
@@ -14,10 +17,12 @@ def thread_maria_serial(MS_PORT, MS_BAUDRATE):
         # print(type(c))
         if len(c):
             if c == b'\n':
-                print(stringa)
+                x = datetime.datetime.now()
+                print("[%s] %s" % (x.strftime('%H:%M:%S.%f'), stringa))
+                on_thread_maria_serial_parse(stringa)
                 stringa = ''
             else:
-                stringa = stringa + str(c.decode('utf-8'))  
+                stringa = stringa + str(c.decode('ascii'))  
 
     if ms_ser.is_open:
         ms_ser.close()
@@ -39,3 +44,10 @@ def ms(msg):
     global ms_ser
     strMsg = msg + "\n"
     ms_ser.write(strMsg.encode('ascii'))
+
+def on_thread_maria_serial_parse(msg):
+    for functionPtr in thread_maria_parse_callbacks:
+        functionPtr(msg)
+
+def thread_maria_serial_register_parse_callback( functPointer):
+    thread_maria_parse_callbacks.append(functPointer)
