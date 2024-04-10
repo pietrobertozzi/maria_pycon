@@ -128,9 +128,11 @@ def reset():
     mst.ms('reset')
 
 def nuovaConfigurazione():
-    mst.ms('envLoad')
+    mst.ms('dbgFlashLl(1, 0)') # erase external flash
+    mst.ms('envLoad')   # load configuration from code segment
     time.sleep(1.0)  # pausa di un secondo
-    mst.ms('envWrite')
+    mst.ms('envWrite') # write configuration
+    mst.ms('dbgExtFlshSignature') # write FLASH signature
     reset()
 
 def environment():
