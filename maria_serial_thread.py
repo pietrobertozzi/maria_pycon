@@ -22,7 +22,14 @@ def thread_maria_serial(MS_PORT, MS_BAUDRATE):
                 on_thread_maria_serial_parse(stringa)
                 stringa = ''
             else:
-                stringa = stringa + str(c.decode('ascii'))  
+                try:
+                    s = str(c.decode('utf-8'))
+                except:
+                    pass
+                else:
+                    stringa = stringa + s
+                
+
 
     if ms_ser.is_open:
         ms_ser.close()
