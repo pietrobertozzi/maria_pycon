@@ -9,7 +9,7 @@ def thread_maria_serial(MS_PORT, MS_BAUDRATE):
     global ms_fGoOn
     global ms_ser
     ms_fGoOn = True
-    ms_ser = serial.Serial(MS_PORT, MS_BAUDRATE, timeout=0)
+    ms_ser = serial.Serial(MS_PORT, MS_BAUDRATE, timeout=1.0)
 
     stringa = ""
     while ms_fGoOn:

@@ -13,7 +13,7 @@ import time
 gufo_help_list = [
     ('gufo.help()               ', 'mostra questo menu'),
     ('', ''),
-    ('gufo.stato()              ', 'mostra questo menu'),
+    ('gufo.stato()              ', 'mostra lo stato dell\'applicazione'),
     ('gufo.reset()              ', 'soft reset microcontrollore'),
     ('gufo.sdCard()             ', 'test SDCARD'),
 ]
