@@ -5,6 +5,7 @@ import sys
 
 import ifc1
 import gufo
+import eeprg
 
 MS_PORT='COM6'
 MS_BAUDRATE=115200
