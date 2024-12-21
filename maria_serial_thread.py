@@ -21,7 +21,6 @@ def thread_maria_serial(MS_PORT, MS_BAUDRATE, eofChar):
         # print(type(c))
         if len(c):
             if c == eofChar:
-                print(c)
                 x = datetime.datetime.now()
                 print("[%s] %s" % (x.strftime('%H:%M:%S.%f'), stringa))
                 on_thread_maria_serial_parse(stringa)
@@ -46,16 +45,16 @@ def thread_maria_serial_stop():
     thr_maria_serial.join()
     print("thread_maria_serial ended\n")
 
-def thread_maria_serial_start(MS_PORT, MS_BAUDRATE, eofByte=b'\r'):
+def thread_maria_serial_start(MS_PORT, MS_BAUDRATE, eofByte=b'\n'):
     """ attiva il thread di ricezione accettando come parametri la porta, il baudrate e il byte di end of frame """
     global thr_maria_serial
     thr_maria_serial = threading.Thread(target=thread_maria_serial, args=(MS_PORT, MS_BAUDRATE, eofByte))
     thr_maria_serial.start()
 
-def ms(msg, eofStr = '\n'):
+def ms(msg, eofStr = b'\n'):
     global ms_ser
-    strMsg = msg + eofStr
-    ms_ser.write(strMsg.encode('ascii'))
+    strMsg = msg + eofStr.decode(encoding='utf-8')
+    ms_ser.write(strMsg.encode('utf-8'))
 
 def on_thread_maria_serial_parse(msg):
     for functionPtr in thread_maria_parse_callbacks:

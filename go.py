@@ -4,8 +4,8 @@ import signal
 import sys
 
 import ifc1
-import gufo
-import eeprg
+#import gufo
+#import eeprg
 
 MS_PORT='COM6'
 MS_BAUDRATE=115200
@@ -18,6 +18,10 @@ def mstEnd():
 def handler(signal_received, frame):
     mstEnd()
     exit(0)    
+
+def off():
+    mstEnd()
+    exit(0)
 
 #######################################################################
 # MAIN
