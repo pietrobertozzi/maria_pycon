@@ -21,10 +21,11 @@ def mstEnd():
 
     for key in mst.msDict:
         mst.msDict[key].thread_maria_serial_stop()
+        print('canale %s off' % key)
 
 def handler(signal_received, frame):
     mstEnd()
-    exit(0)    
+    #exit(0)    
 	
 def off():
     mstEnd()
