@@ -44,6 +44,7 @@ eeprg_help_list = [
     ('usbenc.usbProgram()             ', 'programma la EEPROM con la risoluzione desiderata'),
 ]
 
+module_com = ""
 currentSelectionIdx = -1
 
 def help():
@@ -53,16 +54,18 @@ def help():
 
 def stato() -> int:
     global currentSelectionIdx
+    global module_com
     print('@i')
-    mst.ms('@i', '\r')
+    mst.ms(module_com, '@i', '\r')
     return currentSelectionIdx      
 
 
 def usbProgram(resolutionCode):
     global currentSelectionIdx
+    global module_com
     mst.ms(programmingCommands[resolutionCode][0], '\r')
     time.sleep(1)
-    mst.ms('@x', '\r')
+    mst.ms(module_com, '@x', '\r')
     currentSelectionIdx = -1
 
 def parseMsg(msg):
@@ -74,6 +77,9 @@ def parseMsg(msg):
         currentSelectionIdx = int(msg[3:5], 16)       # estraggo la parte numerica e la converto da hex a int
         print(currentSelectionIdx)
 
-# register parser callback
-mst.thread_maria_serial_register_parse_callback(parseMsg)
+def register(com: str):
+    global module_com
+    module_com = com
+    # register parser callback
+    mst.thread_maria_serial_register_parse_callback(com, parseMsg)
 

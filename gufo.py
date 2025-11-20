@@ -18,24 +18,30 @@ gufo_help_list = [
     ('gufo.sdCard()             ', 'test SDCARD'),
 ]
 
+module_com = ""
+
 def help():
     global gufo_help_list
     for t in gufo_help_list:
         print(t[0] + t[1])
 
 def stato():
-    mst.ms('showStat 2')
+    global module_com 
+    mst.ms(module_com, 'showStat 2')
 
 def reset():
-    mst.ms('reset')
+    mst.ms(module_com, 'reset')
 
 def sdCard():
-    mst.ms('dbgSdcard')
+    mst.ms(module_com, 'dbgSdcard')
 
 def parseMsg(msg):
     #print("parsing: %s" % (msg))
     pass # todo:
 
-# register parser callback
-mst.thread_maria_serial_register_parse_callback(parseMsg)
+def register(com: str):
+    global module_com
+    module_com = com
+    # register parser callback
+    mst.thread_maria_serial_register_parse_callback(com, parseMsg)
 

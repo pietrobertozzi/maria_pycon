@@ -54,7 +54,7 @@ ifc1_help_list = [
     ('ifc1.help                  ', 'mostra questo menu'),
     ('', ''),
     ('----- HARDWARE', ''),
-    ('mst.ms(\'showI2C\')        ', 'I2C scan'),
+    ('ifc1.showI2C()             ', 'I2C scan'),
     ('ifc1.readExtFlash(offset)  ', 'dump di 256 bytes della EXT FLASH a partire dall offset indicato'),
     ('ifc1.eraseExtFlash()       ', 'cancella la flash esterna'),
     ('ifc1.signExtFlash()        ', 'scrive la signature in external flash'),
@@ -81,7 +81,7 @@ ifc1_help_list = [
     ('----- SISTEMA              ', ''),
     ('ifc1.reset()               ', 'Reboot centralina'),
     ('ifc1.nuovaConfigurazione() ', 'Carica e attiva la nuova configurazione'),
-    ('mst.ms(\'envWrite 1\')     ', 'cancella configurazione da flash'),
+    ('ifc1.envWrite(1)           ', 'cancella configurazione da flash'),
     ('', ''),
     ('ifc1.environment()         ', 'Mostra onfigurazione impianto'),
     ('ifc1.stato()               ', 'Mostra stato Centralina'),
@@ -91,97 +91,137 @@ ifc1_help_list = [
     ('ifc1.statoIFD1(n)          ', 'Mostra stato del rilevatore con indirizzo modbus n'),
 ]
 
+module_com = ""
+
 def help():
     global ifc1_help_list
     for t in ifc1_help_list:
         print(t[0] + t[1])
 
+def showI2C():
+    global module_com
+    mst.ms(module_com, 'showI2C')
+
+def envWrite():
+    global module_com
+    mst.ms(module_com, 'envWrite')
+
+
 def GPIOPP_ll():
-    mst.ms('frcGPIOPP 0')
+    global module_com
+    mst.ms(module_com, 'frcGPIOPP 0')
 
 def GPIOPP_ml():
-    mst.ms('frcGPIOPP 2')
+    global module_com
+    mst.ms(module_com, 'frcGPIOPP 2')
 
 def GPIOPP_hl():
-    mst.ms('frcGPIOPP 0xFFFF')
-    mst.ms("frcStopInputRefresh 0")
+    global module_com
+    mst.ms(module_com, 'frcGPIOPP 0xFFFF')
+    mst.ms(module_com, "frcStopInputRefresh 0")
 
 def GPIOPP_noOut():
-    mst.ms('frcGPIOPP 0x1D')
+    global module_com
+    mst.ms(module_com, 'frcGPIOPP 0x1D')
 
 def modbusDump(on):
-    mst.ms('frcLogModbus '+ str(on))
+    global module_com
+    mst.ms(module_com, 'frcLogModbus '+ str(on))
 
 def diagDump(on):
-    mst.ms('frcLogDiag '+ str(on))
+    global module_com
+    mst.ms(module_com, 'frcLogDiag '+ str(on))
 
 def siblingDump(on):
-    mst.ms('frcLogSibling '+ str(on))
+    global module_com
+    mst.ms(module_com, 'frcLogSibling '+ str(on))
 
 def logOn(on):
+    global module_com
     off = 1
     if on:
         off = 0
-    mst.ms('frcLogOff '+ str(off))
+    mst.ms(module_com, 'frcLogOff '+ str(off))
 
 def reset():
-    mst.ms('reset')
+    global module_com
+    mst.ms(module_com, 'reset')
 
 def nuovaConfigurazione():
-    mst.ms('dbgFlashLl(1, 0)') # erase external flash
+    global module_com
+    mst.ms(module_com, 'dbgFlashLl(1, 0)') # erase external flash
     time.sleep(60.0)
     print("-----------------------------------------------------------------")
-    mst.ms('envLoad')   # load configuration from code segment
+    mst.ms(module_com, 'envLoad')   # load configuration from code segment
     time.sleep(1.0)  # pausa di un secondo
-    mst.ms('envWrite') # write configuration
+    mst.ms(module_com, 'envWrite') # write configuration
     time.sleep(2.0)  # pausa di un secondo
-    mst.ms('dbgExtFlshSignature') # write FLASH signature
+    mst.ms(module_com, 'dbgExtFlshSignature') # write FLASH signature
     reset()
 
 def environment():
-    mst.ms('showEnv 2')
+    global module_com
+    mst.ms(module_com, 'showEnv 2')
 
 def stato():
-    mst.ms('showStat 1')
+    global module_com
+    mst.ms(module_com, 'showStat 1')
     time.sleep(0.3)
-    mst.ms('showStat 2 0')
+    mst.ms(module_com, 'showStat 2 0')
 
 def statoSchede():
-    mst.ms('showStat 2 1')
+    global module_com
+    mst.ms(module_com, 'showStat 2 1')
 
 def statoZone():
-    mst.ms('showStat 2 2')
+    global module_com
+    mst.ms(module_com, 'showStat 2 2')
 
 def statoIO():
-    mst.ms('showStat 2 3')
+    global module_com
+    mst.ms(module_com, 'showStat 2 3')
 
 def statoIFD1(ifd1Idx):
-    mst.ms('showStat 3 ' + str(ifd1Idx))
+    global module_com
+    mst.ms(module_com, 'showStat 3 ' + str(ifd1Idx))
 
 def ML_OUT(idx, val):
-    mst.ms('dbgSetOutputVal(' + str(idx) + ',' + str(val) + ')')
+    global module_com
+    mst.ms(module_com, 'dbgSetOutputVal(' + str(idx) + ',' + str(val) + ')')
 
 def LL_OUT(idx, val):
+    global module_com
     if idx in [64, 65, 66, 67, 68]:
         # scheda output-power 0
         ioAddr = idx - 64
-        mst.ms("testMax7300( 3, %d, %d, 0 )" % (ioAddr, val))
+        mst.ms(module_com, "testMax7300( 3, %d, %d, 0 )" % (ioAddr, val))
     elif idx in [69, 70, 71, 72, 73]:
         # scheda output-power 1
         ioAddr = idx - 69
-        mst.ms("testMax7300( 3, %d, %d, 1 )" % (ioAddr, val))
+        mst.ms(module_com, "testMax7300( 3, %d, %d, 1 )" % (ioAddr, val))
     else:
         print('per controllare gli OUTPUTS delle schede I/O utilizzare il test di medio livello')
 
 def ML_IN(idx, val):
-    mst.ms("frcStopInputRefresh 1")
-    mst.ms("dbgSetInputVal(%d, %d)" % (idx, val))
+    global module_com
+    mst.ms(module_com, "frcStopInputRefresh 1")
+    mst.ms(module_com, "dbgSetInputVal(%d, %d)" % (idx, val))
 
 def readExtFlash(offset):
-    mst.ms("dbgFlashLl(2, %d)" % (offset))
+    global module_com
+    mst.ms(module_com, "dbgFlashLl(2, %d)" % (offset))
 
 def eraseExtFlash():
-    mst.ms('dbgFlashLl(1, 0)')
+    global module_com
+    mst.ms(module_com, 'dbgFlashLl(1, 0)')
 
 def signExtFlash():
-    mst.ms('dbgExtFlshSignature')
+    global module_com
+    mst.ms(module_com, 'dbgExtFlshSignature')
+
+def register(com: str):
+    global module_com
+    module_com = com
+    # register parser callback
+    pass
+

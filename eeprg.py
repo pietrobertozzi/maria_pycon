@@ -1,6 +1,8 @@
 from . import maria_serial_thread as mst
 import time
 
+module_com = ""
+
 eeprg_help_list = [
     ('eeprg.help()                   ', 'mostra questo menu'),
     ('', ''),
@@ -15,18 +17,21 @@ def help():
         print(t[0] + t[1])
 
 def stato():
-    mst.ms('showStat 2')
+    mst.ms(module_com, 'showStat 2')
 
 def eepromProgramAndVerify():
-    mst.ms('eepromProgramAndVerify')
+    mst.ms(module_com, 'eepromProgramAndVerify')
 
 def selectEepromImage( idx ):
-    mst.ms('selectEepromImage %d' % (idx))
+    mst.ms(module_com, 'selectEepromImage %d' % (idx))
 
 def parseMsg(msg):
     #print("parsing: %s" % (msg))
     pass # todo:
 
-# register parser callback
-mst.thread_maria_serial_register_parse_callback(parseMsg)
+def register(com: str):
+    global module_com
+    module_com = com
+    # register parser callback
+    mst.thread_maria_serial_register_parse_callback(com, parseMsg)
 
