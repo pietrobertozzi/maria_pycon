@@ -25,6 +25,10 @@ def mstEnd():
 def handler(signal_received, frame):
     mstEnd()
     exit(0)    
+	
+def off():
+    mstEnd()
+    exit(0)
 
 #######################################################################
 # MAIN
